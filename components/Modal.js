@@ -2,37 +2,37 @@ import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "../atoms/modalAtom";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
-import { onSnapshot, doc, addDoc, collection, serverTimestamp } from "@firebase/firestore";
-import { db } from "../firebase";
-import { useSession } from "next-auth/react";
+// import { onSnapshot, doc, addDoc, collection, serverTimestamp } from "@firebase/firestore";
+// import { db } from "../firebase";
+// import { useSession } from "next-auth/react";
 import { CalendarIcon, ChartBarIcon, EmojiHappyIcon, PhotographIcon, XIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import Moment from "react-moment";
 
 function Modal() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [postId, setPostId] = useRecoilState(postIdState);
   const [post, setPost] = useState();
   const [comment, setComment] = useState("");
   const router = useRouter();
 
-  useEffect(() => {
-    onSnapshot(doc(db, "posts", postId), (snapshot) => {
-      setPost(snapshot.data());
-    });
-  }, [db]);
+  // useEffect(() => {
+  //   onSnapshot(doc(db, "posts", postId), (snapshot) => {
+  //     setPost(snapshot.data());
+  //   });
+  // }, [db]);
 
   const sendComment = async (e) => {
     e.preventDefault();
 
-    await addDoc(collection(db, "posts", postId, "comments"), {
-      comment: comment,
-      username: session.user.name,
-      tag: session.user.tag,
-      userImg: session.user.image,
-      timestamp: serverTimestamp(),
-    });
+    // await addDoc(collection(db, "posts", postId, "comments"), {
+    //   comment: comment,
+    //   username: session.user.name,
+    //   tag: session.user.tag,
+    //   userImg: session.user.image,
+    //   timestamp: serverTimestamp(),
+    // });
 
     setIsOpen(false);
     setComment("");
