@@ -1,3 +1,6 @@
+import Amplify, { DataStore, Predicates } from "aws-amplify";
+import { Post, PostStatus } from "../src/models";
+
 import { CalendarIcon, ChartBarIcon, EmojiHappyIcon, PhotographIcon, XIcon } from "@heroicons/react/outline";
 import { useRef, useState } from "react";
 import "emoji-mart/css/emoji-mart.css";
@@ -18,8 +21,20 @@ function Input() {
   // const { data: session } = useSession();
 
   const sendPost = async () => {
-    if (loading) return;
-    setLoading(true);
+    // if (loading) return;
+    // setLoading(true);
+    console.log("this executed");
+    try {
+      await DataStore.save(
+        new Post({
+          title: input,
+          status: PostStatus.PUBLISHED,
+        })
+      );
+      console.log("Post saved successfully!");
+    } catch (error) {
+      console.log("Error saving post", error);
+    }
 
     // const docRef = await addDoc(collection(db, "posts"), {
     //   id: session.user.uid,
@@ -30,9 +45,9 @@ function Input() {
     //   timestamp: serverTimestamp(),
     // });
 
-    console.log("doc ref id ", docRef.id);
+    // console.log("doc ref id ", docRef.id);
 
-    const imageRef = ref(storage, `posts/${docRef.id}/image`);
+    // const imageRef = ref(storage, `posts/${docRef.id}/image`);
 
     // if (selectedFile) {
     //   await uploadString(imageRef, selectedFile, "data_url").then(async () => {
@@ -43,7 +58,7 @@ function Input() {
     //   });
     // }
 
-    setLoading(false);
+    // setLoading(false);
     setInput("");
     setSelectedFile(null);
     setShowEmojis(false);

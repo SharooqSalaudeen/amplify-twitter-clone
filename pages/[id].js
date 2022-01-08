@@ -1,5 +1,5 @@
-import { collection, doc, onSnapshot, orderBy, query } from "@firebase/firestore";
-import { getProviders, getSession, useSession } from "next-auth/react";
+// import { collection, doc, onSnapshot, orderBy, query } from "@firebase/firestore";
+// import { getProviders, getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -9,7 +9,7 @@ import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
 import Login from "../components/Login";
 import Post from "../components/Post";
-import { db } from "../firebase";
+// import { db } from "../firebase";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import Comment from "../components/Comment";
 import Head from "next/head";
@@ -22,23 +22,23 @@ function PostPage({ trendingResults, followResults, providers }) {
   const router = useRouter();
   const { id } = router.query;
 
-  useEffect(
-    () =>
-      onSnapshot(doc(db, "posts", id), (snapshot) => {
-        setPost(snapshot.data());
-      }),
-    [db, id]
-  );
+  // useEffect(
+  //   () =>
+  //     onSnapshot(doc(db, "posts", id), (snapshot) => {
+  //       setPost(snapshot.data());
+  //     }),
+  //   [db, id]
+  // );
 
-  useEffect(
-    () =>
-      onSnapshot(query(collection(db, "posts", id, "comments"), orderBy("timestamp", "desc")), (snapshot) =>
-        setComments(snapshot.docs)
-      ),
-    [db, id]
-  );
+  // useEffect(
+  //   () =>
+  //     onSnapshot(query(collection(db, "posts", id, "comments"), orderBy("timestamp", "desc")), (snapshot) =>
+  //       setComments(snapshot.docs)
+  //     ),
+  //   [db, id]
+  // );
 
-  if (!session) return <Login providers={providers} />;
+  // if (!session) return <Login providers={providers} />;
 
   return (
     <div>

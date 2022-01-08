@@ -1,20 +1,49 @@
+import Amplify, { DataStore, Predicates, SortDirection } from "aws-amplify";
+import { Post, PostStatus } from "../src/models";
+
 import { SparklesIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import Input from "./Input";
 // import { onSnapshot, collection, query, orderBy } from "@firebase/firestore";
 // import { db } from "../firebase";
-import Post from "./Post";
+import PostComponent from "./Post";
 // import { useSession } from "next-auth/react";
 
 function Feed() {
   // const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
+  console.log("posts", posts);
+
+  // useEffect(async () => {
+  //   try {
+  //     const _posts = await DataStore.query(Post);
+  //     setPosts(_posts);
+  //     console.log("Posts retrieved successfully!", JSON.stringify(posts, null, 2));
+  //   } catch (error) {
+  //     console.log("Error retrieving posts", error);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    const subscription = DataStore.observeQuery(Post, Predicates.ALL, {
+      sort: (s) => s.createdAt(SortDirection.DESCENDING),
+    }).subscribe((snapshot) => {
+      const { items, isSynced } = snapshot;
+      console.log(`Posts item count: ${items.length}, isSynced: ${isSynced}`);
+      console.log("items", items);
+      setPosts(items);
+    });
+  }, []);
 
   // useEffect(() => {
-  //   onSnapshot(query(collection(db, "posts"), orderBy("timestamp", "desc")), (snapshot) => {
-  //     setPosts(snapshot.docs);
+  //   const subscription = DataStore.observe(Post).subscribe((msg) => {
+  //     console.log("Post subscription model", msg.model);
+  //     console.log("Post subscription opType", msg.opType);
+  //     console.log("Post subscription elemnt", msg.element);
   //   });
-  // }, [db]);
+
+  //   return () => subscription.unsubscribe();
+  // }, []);
 
   // console.log("posts", posts);
 
@@ -37,9 +66,9 @@ function Feed() {
       </div>
       <Input />
       <div className="pb-72">
-        {/* {posts.map((post) => (
-          <Post key={post.id} id={post.id} post={post.data()} />
-        ))} */}
+        {posts.map((post) => (
+          <PostComponent key={post.id} id={post.id} post={post} />
+        ))}
       </div>
     </div>
   );

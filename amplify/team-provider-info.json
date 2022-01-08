@@ -9,7 +9,21 @@
       "UnauthRoleName": "amplify-twitterclone-dev-152924-unauthRole",
       "StackName": "amplify-twitterclone-dev-152924",
       "StackId": "arn:aws:cloudformation:us-east-2:456464529604:stack/amplify-twitterclone-dev-152924/02a40f40-6d45-11ec-90ac-0241944885e0",
-      "AmplifyAppId": "d2aea8uzoaeodj"
+      "AmplifyAppId": "d2aea8uzoaeodj",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-twitterclone-dev-152924-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "twitterclonec663b801": {
+          "googleClientId": "741358340692-2lplnh38pjp4on9u51qn6hkf02556vsu.apps.googleusercontent.com"
+        }
+      },
+      "function": {
+        "twitterclonec663b801PostConfirmation": {
+          "deploymentBucketName": "amplify-twitterclone-dev-152924-deployment",
+          "s3Key": "amplify-builds/twitterclonec663b801PostConfirmation-61476f77716832474535-build.zip"
+        }
+      }
     }
   }
 }
