@@ -67,12 +67,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "twitterclonec663b801PostConfirmation",
+            "twitterclonec76f5796PostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "twitterclonec663b801PostConfirmation",
+                  "twitterclonec76f5796PostConfirmation",
                   "-",
                   {
                     "Ref": "env"
@@ -122,12 +122,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "twitterclonec663b801PostConfirmation",
+            "twitterclonec76f5796PostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "twitterclonec663b801PostConfirmation",
+                  "twitterclonec76f5796PostConfirmation",
                   "-",
                   {
                     "Ref": "env"

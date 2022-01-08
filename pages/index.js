@@ -89,9 +89,6 @@ export default function Home({ trendingResults, followResults, providers }) {
   //   return () => subscription.unsubscribe();
   // }, []);
 
-  //   return () => subscription.unsubscribe();
-  // }, []);
-
   /* DataStore test end ------------------------ */
 
   console.log("user", user);

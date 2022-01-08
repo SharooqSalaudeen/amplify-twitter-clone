@@ -13,15 +13,15 @@
       "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-twitterclone-dev-152924-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
-      "auth": {
-        "twitterclonec663b801": {
-          "googleClientId": "741358340692-2lplnh38pjp4on9u51qn6hkf02556vsu.apps.googleusercontent.com"
+      "function": {
+        "twitterclonec76f5796PostConfirmation": {
+          "deploymentBucketName": "amplify-twitterclone-dev-152924-deployment",
+          "s3Key": "amplify-builds/twitterclonec76f5796PostConfirmation-36756668636f66573661-build.zip"
         }
       },
-      "function": {
-        "twitterclonec663b801PostConfirmation": {
-          "deploymentBucketName": "amplify-twitterclone-dev-152924-deployment",
-          "s3Key": "amplify-builds/twitterclonec663b801PostConfirmation-61476f77716832474535-build.zip"
+      "auth": {
+        "twitterclonec76f5796": {
+          "googleClientId": "741358340692-2lplnh38pjp4on9u51qn6hkf02556vsu.apps.googleusercontent.com"
         }
       }
     }
