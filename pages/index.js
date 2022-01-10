@@ -13,6 +13,7 @@ import { useRecoilState } from "recoil";
 import Amplify, { Auth, Hub, DataStore, Predicates } from "aws-amplify";
 import { Post, PostStatus } from "../src/models";
 import awsconfig from "../src/aws-exports";
+import SignIn from "../components/SignIn";
 Amplify.configure(awsconfig);
 
 export async function getServerSideProps(context) {
@@ -33,37 +34,9 @@ export async function getServerSideProps(context) {
 
 export default function Home({ trendingResults, followResults, providers }) {
   // const { data: session } = useSession();
-  const [user, setUser] = useState(null);
   const [isOpen, setIsOpen] = useRecoilState(modalState);
 
   // if (!session) return <Login providers={providers} />;
-
-  useEffect(() => {
-    Hub.listen("auth", ({ payload: { event, data } }) => {
-      switch (event) {
-        case "signIn":
-        case "cognitoHostedUI":
-          getUser();
-          break;
-        case "signOut":
-          setUser(null);
-          break;
-        case "signIn_failure":
-        case "cognitoHostedUI_failure":
-          console.log("Sign in failure", data);
-          break;
-      }
-    });
-  }, []);
-
-  const getUser = () => {
-    return Auth.currentAuthenticatedUser()
-      .then((userData) => {
-        console.log("userData", userData);
-        setUser(userData.attributes);
-      })
-      .catch(() => console.log("Not signed in"));
-  };
 
   /* DataStore test ------------------------ */
   function onCreate() {
@@ -94,28 +67,14 @@ export default function Home({ trendingResults, followResults, providers }) {
 
   /* DataStore test end ------------------------ */
 
-  console.log("user", user);
-
   return (
     <div className="">
       <Head>
         <title>Home / Twitter</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* Auth code ------------------------ */}
-      <div className="">
-        {/* <button onClick={() => Auth.federatedSignIn({provider: 'Facebook'})}>Open Facebook</button> */}
-        <button onClick={() => Auth.federatedSignIn({ provider: "Google" })}>Open Google</button>
-        <button onClick={() => Auth.federatedSignIn()}>Open Hosted UI</button>
+      <SignIn />
 
-        {user && (
-          <>
-            <button onClick={() => Auth.signOut()}>Sign Out </button>
-            <p>{user.name}</p>
-          </>
-        )}
-      </div>
-      {/* Auth code end ------------------------ */}
       {/* DataStore test ------------------------ */}
       <div>
         <input type="button" value="NEW" onClick={onCreate} />

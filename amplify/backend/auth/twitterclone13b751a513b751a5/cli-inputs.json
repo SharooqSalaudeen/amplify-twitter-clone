@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "twitterclone1556aee3_identitypool_1556aee3",
+    "identityPoolName": "twitterclone13b751a5_identitypool_13b751a5",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "twitte1556aee3",
-    "userPoolName": "twitterclone1556aee3_userpool_1556aee3",
+    "resourceNameTruncated": "twitte13b751a5",
+    "userPoolName": "twitterclone13b751a5_userpool_13b751a5",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -35,10 +35,10 @@
       "name",
       "picture"
     ],
-    "userpoolClientLambdaRole": "twitte1556aee3_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "twitte13b751a5_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,
-    "sharedId": "1556aee3",
-    "resourceName": "twitterclone1556aee31556aee3",
+    "sharedId": "13b751a5",
+    "resourceName": "twitterclone13b751a513b751a5",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
     "thirdPartyAuth": true,
@@ -56,44 +56,15 @@
       ]
     },
     "hostedUI": true,
-    "hostedUIDomainName": "twitterclone1556aee3-1556aee3",
+    "hostedUIDomainName": "twitterclone13b751a5-13b751a5",
     "authProvidersUserPool": [
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true,
-    "authRoleArn": {
-      "Fn::GetAtt": [
-        "AuthRole",
-        "Arn"
-      ]
-    },
-    "unauthRoleArn": {
-      "Fn::GetAtt": [
-        "UnauthRole",
-        "Arn"
-      ]
-    },
-    "breakCircularDependency": true,
-    "dependsOn": [
-      {
-        "category": "function",
-        "resourceName": "twitterclone1556aee31556aee3PostConfirmation",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      }
-    ],
-    "permissions": [],
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"twitterclone1556aee31556aee3PostConfirmation\"\n  }\n]",
-    "parentStack": {
-      "Ref": "AWS::StackId"
-    },
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}"
+    "useEnabledMfas": true
   }
 }

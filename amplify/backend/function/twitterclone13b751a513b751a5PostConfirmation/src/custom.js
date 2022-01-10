@@ -22,7 +22,7 @@ exports.handler = async (event) => {
     createdAt: { S: now.toISOString() },
     updatedAt: { S: now.toISOString() },
     id: { S: event.request.userAttributes.sub },
-    name: { S: event.request.userAttributes.email },
+    email: { S: event.request.userAttributes.email },
   };
 
   const params = {

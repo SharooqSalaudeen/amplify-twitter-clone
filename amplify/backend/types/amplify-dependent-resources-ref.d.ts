@@ -7,7 +7,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "auth": {
-        "twitterclone1556aee31556aee3": {
+        "twitterclone13b751a513b751a5": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "HostedUIDomain": "string",
@@ -21,7 +21,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "twitterclone1556aee31556aee3PostConfirmation": {
+        "twitterclone13b751a513b751a5PostConfirmation": {
             "Name": "string",
             "Arn": "string",
             "LambdaExecutionRole": "string",

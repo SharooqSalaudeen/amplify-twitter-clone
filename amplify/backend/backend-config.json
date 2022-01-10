@@ -19,13 +19,13 @@
     }
   },
   "auth": {
-    "twitterclone1556aee31556aee3": {
+    "twitterclone13b751a513b751a5": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "twitterclone1556aee31556aee3PostConfirmation",
+          "resourceName": "twitterclone13b751a513b751a5PostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -59,7 +59,7 @@
     }
   },
   "function": {
-    "twitterclone1556aee31556aee3PostConfirmation": {
+    "twitterclone13b751a513b751a5PostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
