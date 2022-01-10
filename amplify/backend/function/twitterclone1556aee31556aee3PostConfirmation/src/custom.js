@@ -1,9 +1,10 @@
 const aws = require("aws-sdk");
 const ddb = new aws.DynamoDB();
 
-const tableName = "User-s44rurqpe5c25f5ccaul5smkgi-dev";
+const tableName = process.env.USERTABLE;
 
-exports.handler = (event, context, callback) => {
+exports.handler = async (event) => {
+  // event event.request.userAttributes.(sub, email)
   // insert code to be executed by your lambda trigger
 
   if (!event?.request?.userAttributes?.sub) {
@@ -22,7 +23,6 @@ exports.handler = (event, context, callback) => {
     updatedAt: { S: now.toISOString() },
     id: { S: event.request.userAttributes.sub },
     name: { S: event.request.userAttributes.email },
-    email: { S: event.request.userAttributes.name },
   };
 
   const params = {

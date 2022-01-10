@@ -58,7 +58,10 @@ export default function Home({ trendingResults, followResults, providers }) {
 
   const getUser = () => {
     return Auth.currentAuthenticatedUser()
-      .then((userData) => setUser(userData.attributes))
+      .then((userData) => {
+        console.log("userData", userData);
+        setUser(userData.attributes);
+      })
       .catch(() => console.log("Not signed in"));
   };
 

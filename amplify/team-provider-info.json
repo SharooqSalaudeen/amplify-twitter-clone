@@ -13,14 +13,41 @@
       "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-twitterclone-dev-152924-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
+      "auth": {
+        "twitterclone1556aee31556aee3": {
+          "googleClientId": "741358340692-2lplnh38pjp4on9u51qn6hkf02556vsu.apps.googleusercontent.com"
+        }
+      },
       "function": {
-        "twitterclonec76f5796PostConfirmation": {
+        "twitterclone1556aee31556aee3PostConfirmation": {
           "deploymentBucketName": "amplify-twitterclone-dev-152924-deployment",
-          "s3Key": "amplify-builds/twitterclonec76f5796PostConfirmation-36756668636f66573661-build.zip"
+          "s3Key": "amplify-builds/twitterclone1556aee31556aee3PostConfirmation-4c50562f556574786a64-build.zip"
+        }
+      }
+    }
+  },
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-twitterclone-staging-01247-authRole",
+      "UnauthRoleArn": "arn:aws:iam::456464529604:role/amplify-twitterclone-staging-01247-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::456464529604:role/amplify-twitterclone-staging-01247-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-twitterclone-staging-01247-deployment",
+      "UnauthRoleName": "amplify-twitterclone-staging-01247-unauthRole",
+      "StackName": "amplify-twitterclone-staging-01247",
+      "StackId": "arn:aws:cloudformation:us-east-2:456464529604:stack/amplify-twitterclone-staging-01247/2c07c7a0-7245-11ec-93fb-02bd3c7f8164",
+      "AmplifyAppId": "d2aea8uzoaeodj",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-twitterclone-staging-01247-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "function": {
+        "twitterclone1556aee31556aee3PostConfirmation": {
+          "deploymentBucketName": "amplify-twitterclone-staging-01247-deployment",
+          "s3Key": "amplify-builds/twitterclone1556aee31556aee3PostConfirmation-4c50562f556574786a64-build.zip"
         }
       },
       "auth": {
-        "twitterclonec76f5796": {
+        "twitterclone1556aee31556aee3": {
           "googleClientId": "741358340692-2lplnh38pjp4on9u51qn6hkf02556vsu.apps.googleusercontent.com"
         }
       }

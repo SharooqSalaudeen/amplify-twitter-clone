@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "twitterclonec76f5796_identitypool_c76f5796",
+    "identityPoolName": "twitterclone1556aee3_identitypool_1556aee3",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "twittec76f5796",
-    "userPoolName": "twitterclonec76f5796_userpool_c76f5796",
+    "resourceNameTruncated": "twitte1556aee3",
+    "userPoolName": "twitterclone1556aee3_userpool_1556aee3",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -20,36 +20,47 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
+      "email"
+    ],
+    "aliasAttributes": [],
+    "userpoolClientGenerateSecret": false,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+      "name",
+      "picture",
+      "email"
+    ],
+    "userpoolClientReadAttributes": [
       "email",
       "name",
       "picture"
     ],
-    "aliasAttributes": [],
-    "userpoolClientGenerateSecret": false,
-    "userpoolClientRefreshTokenValidity": "250",
-    "userpoolClientWriteAttributes": [
-      "email"
-    ],
-    "userpoolClientReadAttributes": [
-      "email"
-    ],
-    "userpoolClientLambdaRole": "twittec76f5796_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
-    "sharedId": "c76f5796",
-    "resourceName": "twitterclonec76f5796",
+    "userpoolClientLambdaRole": "twitte1556aee3_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": true,
+    "sharedId": "1556aee3",
+    "resourceName": "twitterclone1556aee31556aee3",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
-    "hostedUI": true,
+    "thirdPartyAuth": true,
+    "authProviders": [
+      "accounts.google.com"
+    ],
+    "usernameAttributes": [
+      "email"
+    ],
+    "userPoolGroups": false,
+    "adminQueries": false,
     "triggers": {
       "PostConfirmation": [
         "custom"
       ]
     },
-    "hostedUIDomainName": "twitterclonec76f5796-c76f5796",
+    "hostedUI": true,
+    "hostedUIDomainName": "twitterclone1556aee3-1556aee3",
     "authProvidersUserPool": [
       "Google"
     ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"picture\":\"picture\",\"username\":\"sub\"}}]",
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
@@ -70,7 +81,7 @@
     "dependsOn": [
       {
         "category": "function",
-        "resourceName": "twitterclonec76f5796PostConfirmation",
+        "resourceName": "twitterclone1556aee31556aee3PostConfirmation",
         "triggerProvider": "Cognito",
         "attributes": [
           "Arn",
@@ -78,17 +89,11 @@
         ]
       }
     ],
-    "thirdPartyAuth": true,
-    "userPoolGroups": false,
-    "adminQueries": false,
-    "authProviders": [
-      "accounts.google.com"
-    ],
+    "permissions": [],
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"twitterclone1556aee31556aee3PostConfirmation\"\n  }\n]",
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"twitterclonec76f5796PostConfirmation\"\n  }\n]",
-    "permissions": [],
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}"
   }
 }

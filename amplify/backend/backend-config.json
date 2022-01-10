@@ -19,13 +19,13 @@
     }
   },
   "auth": {
-    "twitterclonec76f5796": {
+    "twitterclone1556aee31556aee3": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "twitterclonec76f5796PostConfirmation",
+          "resourceName": "twitterclone1556aee31556aee3PostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -38,11 +38,11 @@
         "socialProviders": [
           "GOOGLE"
         ],
-        "usernameAttributes": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
         "signupAttributes": [
-          "EMAIL",
-          "NAME",
-          "PICTURE"
+          "EMAIL"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
@@ -59,7 +59,7 @@
     }
   },
   "function": {
-    "twitterclonec76f5796PostConfirmation": {
+    "twitterclone1556aee31556aee3PostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
