@@ -1,95 +1,75 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import Image from "next/image";
+import { useRouter } from "next/router";
 import Head from "next/head";
-import Feed from "../components/Feed";
-import Sidebar from "../components/Sidebar";
-import Widgets from "../components/Widgets";
-// import { getProviders, getSession, useSession } from "next-auth/react";
-import Login from "../components/Login";
-import Modal from "../components/Modal";
-import { modalState } from "../atoms/modalAtom";
-import { useRecoilState } from "recoil";
+
+import checkUser from "../helpers/checkUser";
 
 //Amplify ------------------------------
 import Amplify, { Auth, Hub, DataStore, Predicates } from "aws-amplify";
-import { Post, PostStatus } from "../src/models";
-import awsconfig from "../src/aws-exports";
-import SignIn from "../components/SignIn";
-Amplify.configure(awsconfig);
+import { withSSRContext } from "aws-amplify";
+import "../configureAmplify";
 
 export async function getServerSideProps(context) {
-  const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then((res) => res.json());
-  const followResults = await fetch("https://jsonkeeper.com/b/WWMJ").then((res) => res.json());
-  // const providers = await getProviders();
-  // const session = await getSession(context);
+  const SSR = withSSRContext(context);
 
-  return {
-    props: {
-      trendingResults,
-      followResults,
-      // providers,
-      // session,
-    },
-  };
+  try {
+    const user = await SSR.Auth.currentAuthenticatedUser();
+    return {
+      redirect: {
+        destination: "/home",
+        permanent: false,
+      },
+    };
+  } catch (err) {
+    console.log("server", err);
+    return {
+      props: {},
+    };
+  }
 }
 
-export default function Home({ trendingResults, followResults, providers }) {
-  // const { data: session } = useSession();
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
+export default function Main() {
+  const router = useRouter();
+  const user = checkUser();
 
-  // if (!session) return <Login providers={providers} />;
-
-  /* DataStore test ------------------------ */
-  function onCreate() {
-    DataStore.save(
-      new Post({
-        title: `New title ${Date.now()}`,
-        status: PostStatus.PUBLISHED,
-      })
-    );
-  }
-
-  function onDeleteAll() {
-    DataStore.delete(Post, Predicates.ALL);
-  }
-
-  async function onQuery() {
-    const posts = await DataStore.query(Post, (c) => c.rating("gt", 4));
-    console.log(posts);
-  }
-
-  // useEffect(() => {
-  //   const subscription = DataStore.observe(Post).subscribe((msg) => {
-  //     console.log("Post subscription", msg.model, msg.opType, msg.element);
-  //   });
-
-  //   return () => subscription.unsubscribe();
-  // }, []);
-
-  /* DataStore test end ------------------------ */
+  useEffect(() => {
+    if (user) {
+      router.push("/home");
+    }
+  }, [user]);
 
   return (
     <div className="">
       <Head>
-        <title>Home / Twitter</title>
+        <title>Login / Twitter</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SignIn />
+      {/* <SignIn /> */}
 
-      {/* DataStore test ------------------------ */}
-      <div>
-        <input type="button" value="NEW" onClick={onCreate} />
-        <input type="button" value="DELETE ALL" onClick={onDeleteAll} />
-        <input type="button" value="QUERY rating > 4" onClick={onQuery} />
+      <div className="flex flex-col items-center space-y-20 pt-48 bg-black h-screen">
+        <Image src="https://rb.gy/ogau5a" width={150} height={150} objectFit="contain" />
+
+        <div>
+          <div>
+            <button
+              className="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group"
+              onClick={() => {
+                try {
+                  Auth.federatedSignIn({ provider: "Google" });
+                } catch (err) {
+                  console.log("error", err);
+                }
+              }}
+            >
+              <span className="w-48 h-48 rounded rotate-[-40deg] bg-[#1d9bf0] absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
+              <span className="relative w-full text-left text-black transition-colors duration-300 ease-in-out group-hover:text-white">
+                Sign in with Google
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
-      {/* DataStore test end ------------------------ */}
-
-      <main className="bg-black min-h-screen flex max-w-[1500px] mx-auto">
-        <Sidebar />
-        <Feed />
-        <Widgets trendingResults={trendingResults} followResults={followResults} />
-
-        {isOpen && <Modal />}
-      </main>
     </div>
   );
 }

@@ -11,6 +11,7 @@ import {
   DotsHorizontalIcon,
 } from "@heroicons/react/outline";
 import SidebarLink from "./SidebarLink";
+import { Auth } from "aws-amplify";
 // import { signOut, useSession } from "next-auth/react";
 
 function Sidebar() {
@@ -40,12 +41,15 @@ function Sidebar() {
       <div
         className="text-[#d9d9d9] flex items-center justify-center hoverAnimation 
       xl:-mr-5 mt-auto"
-        // onClick={signOut}
+        onClick={() => {
+          Auth.signOut();
+          console.log("sign out");
+        }}
       >
         {/* <img src={session.user.image} alt="" className="h-10 w-10 rounded-full xl:mr-2.5" /> */}
         <div className="hidden xl:inline leading-5">
-          {/* <h4 className="font-bold">{session.user.name}</h4> */}
-          {/* <p className="text-[#6c767d">{session.user.tag}</p> */}
+          <h4 className="font-bold">Name</h4>
+          <p className="text-[#6c767d]">Tag</p>
         </div>
         <DotsHorizontalIcon className="h-5 hidden xl:inline ml-10" />
       </div>

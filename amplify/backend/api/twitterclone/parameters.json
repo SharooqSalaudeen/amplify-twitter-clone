@@ -1,5 +1,5 @@
 {
-  "AppSyncApiName": "twitterclone",
+  "AppSyncApiName": "TwitterClone",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false
 }

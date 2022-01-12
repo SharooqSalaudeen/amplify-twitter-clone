@@ -1,55 +1,19 @@
 {
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-twitterclone-dev-152924-authRole",
-      "UnauthRoleArn": "arn:aws:iam::456464529604:role/amplify-twitterclone-dev-152924-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::456464529604:role/amplify-twitterclone-dev-152924-authRole",
-      "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-twitterclone-dev-152924-deployment",
-      "UnauthRoleName": "amplify-twitterclone-dev-152924-unauthRole",
-      "StackName": "amplify-twitterclone-dev-152924",
-      "StackId": "arn:aws:cloudformation:us-east-2:456464529604:stack/amplify-twitterclone-dev-152924/02a40f40-6d45-11ec-90ac-0241944885e0",
-      "AmplifyAppId": "d2aea8uzoaeodj",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-twitterclone-dev-152924-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
-    },
-    "categories": {
-      "auth": {
-        "twitterclone1556aee31556aee3": {
-          "googleClientId": "741358340692-2lplnh38pjp4on9u51qn6hkf02556vsu.apps.googleusercontent.com"
-        }
-      },
-      "function": {
-        "twitterclone1556aee31556aee3PostConfirmation": {
-          "deploymentBucketName": "amplify-twitterclone-dev-152924-deployment",
-          "s3Key": "amplify-builds/twitterclone1556aee31556aee3PostConfirmation-4c50562f556574786a64-build.zip"
-        }
-      }
-    }
-  },
   "staging": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-twitterclone-staging-01247-authRole",
-      "UnauthRoleArn": "arn:aws:iam::456464529604:role/amplify-twitterclone-staging-01247-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::456464529604:role/amplify-twitterclone-staging-01247-authRole",
+      "AuthRoleName": "amplify-amplify82d5055b45aa4-staging-61645-authRole",
+      "UnauthRoleArn": "arn:aws:iam::456464529604:role/amplify-amplify82d5055b45aa4-staging-61645-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::456464529604:role/amplify-amplify82d5055b45aa4-staging-61645-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-twitterclone-staging-01247-deployment",
-      "UnauthRoleName": "amplify-twitterclone-staging-01247-unauthRole",
-      "StackName": "amplify-twitterclone-staging-01247",
-      "StackId": "arn:aws:cloudformation:us-east-2:456464529604:stack/amplify-twitterclone-staging-01247/2c07c7a0-7245-11ec-93fb-02bd3c7f8164",
-      "AmplifyAppId": "d2aea8uzoaeodj",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-twitterclone-staging-01247-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+      "DeploymentBucketName": "amplify-amplify82d5055b45aa4-staging-61645-deployment",
+      "UnauthRoleName": "amplify-amplify82d5055b45aa4-staging-61645-unauthRole",
+      "StackName": "amplify-amplify82d5055b45aa4-staging-61645",
+      "StackId": "arn:aws:cloudformation:us-east-2:456464529604:stack/amplify-amplify82d5055b45aa4-staging-61645/38334150-736f-11ec-8218-06cad64a39e8",
+      "AmplifyAppId": "d2aea8uzoaeodj"
     },
     "categories": {
       "auth": {
-        "twitterclone13b751a513b751a5": {
-          "googleClientId": "741358340692-2lplnh38pjp4on9u51qn6hkf02556vsu.apps.googleusercontent.com"
-        }
-      },
-      "function": {
-        "twitterclone13b751a513b751a5PostConfirmation": {
-          "deploymentBucketName": "amplify-twitterclone-staging-01247-deployment",
-          "s3Key": "amplify-builds/twitterclone13b751a513b751a5PostConfirmation-79315962317774623145-build.zip"
-        }
+        "TwitterClone": {}
       }
     }
   }
