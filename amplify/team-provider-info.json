@@ -9,11 +9,18 @@
       "UnauthRoleName": "amplify-amplify82d5055b45aa4-staging-61645-unauthRole",
       "StackName": "amplify-amplify82d5055b45aa4-staging-61645",
       "StackId": "arn:aws:cloudformation:us-east-2:456464529604:stack/amplify-amplify82d5055b45aa4-staging-61645/38334150-736f-11ec-8218-06cad64a39e8",
-      "AmplifyAppId": "d2aea8uzoaeodj"
+      "AmplifyAppId": "d2aea8uzoaeodj",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-amplify82d5055b45aa4-staging-61645-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
         "TwitterClone": {}
+      },
+      "function": {
+        "TwitterClonePostConfirmation": {
+          "deploymentBucketName": "amplify-amplify82d5055b45aa4-staging-61645-deployment",
+          "s3Key": "amplify-builds/TwitterClonePostConfirmation-78714244585254515274-build.zip"
+        }
       }
     }
   }
