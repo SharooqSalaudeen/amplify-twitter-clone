@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import Feed from "../components/Feed";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
 import Modal from "../components/Modal";
-import { modalState } from "../atoms/modalAtom";
+import { modalState, userState } from "../atoms/modalAtom";
 import { useRecoilState } from "recoil";
 
 import Amplify, { Auth, Hub, DataStore, Predicates, withSSRContext } from "aws-amplify";
@@ -38,7 +37,7 @@ export async function getServerSideProps(context) {
 
 export default function Home({ trendingResults, followResults, authenticated, user }) {
   const [isOpen, setIsOpen] = useRecoilState(modalState);
-  const router = useRouter();
+  console.log("user", user);
 
   return (
     <div className="">
@@ -46,7 +45,6 @@ export default function Home({ trendingResults, followResults, authenticated, us
         <title>Login / Twitter</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main className="bg-black min-h-screen flex max-w-[1500px] mx-auto">
         <Sidebar user={user} />
         <Feed />

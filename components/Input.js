@@ -23,12 +23,10 @@ function Input() {
   const sendPost = async () => {
     // if (loading) return;
     // setLoading(true);
-    console.log("this executed");
     try {
       await DataStore.save(
         new Post({
-          title: input,
-          status: PostStatus.PUBLISHED,
+          content: input,
         })
       );
       console.log("Post saved successfully!");

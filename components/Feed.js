@@ -12,7 +12,7 @@ import PostComponent from "./Post";
 function Feed() {
   // const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
-  console.log("posts", posts);
+  // console.log("posts", posts);
 
   // useEffect(async () => {
   //   try {
@@ -29,8 +29,8 @@ function Feed() {
       sort: (s) => s.createdAt(SortDirection.DESCENDING),
     }).subscribe((snapshot) => {
       const { items, isSynced } = snapshot;
-      console.log(`Posts item count: ${items.length}, isSynced: ${isSynced}`);
-      console.log("items", items);
+      // console.log(`Posts item count: ${items.length}, isSynced: ${isSynced}`);
+      // console.log("items", items);
       setPosts(items);
     });
   }, []);
@@ -44,8 +44,6 @@ function Feed() {
 
   //   return () => subscription.unsubscribe();
   // }, []);
-
-  // console.log("posts", posts);
 
   return (
     <div

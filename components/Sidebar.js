@@ -14,7 +14,7 @@ import SidebarLink from "./SidebarLink";
 import { Auth } from "aws-amplify";
 // import { signOut, useSession } from "next-auth/react";
 
-function Sidebar() {
+function Sidebar({ user }) {
   // const { data: session } = useSession();
 
   return (
@@ -46,10 +46,10 @@ function Sidebar() {
           console.log("sign out");
         }}
       >
-        {/* <img src={session.user.image} alt="" className="h-10 w-10 rounded-full xl:mr-2.5" /> */}
+        <img src={user.picture} alt="" className="h-10 w-10 rounded-full xl:mr-2.5" />
         <div className="hidden xl:inline leading-5">
-          <h4 className="font-bold">Name</h4>
-          <p className="text-[#6c767d]">Tag</p>
+          <h4 className="font-bold">{user.name}</h4>
+          <p className="text-[#6c767d]">{user.email}</p>
         </div>
         <DotsHorizontalIcon className="h-5 hidden xl:inline ml-10" />
       </div>
