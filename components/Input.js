@@ -1,16 +1,12 @@
+import { useRef, useState, useContext } from "react";
 import Amplify, { DataStore, Predicates } from "aws-amplify";
 import { Post, PostStatus } from "../src/models";
 
 import { CalendarIcon, ChartBarIcon, EmojiHappyIcon, PhotographIcon, XIcon } from "@heroicons/react/outline";
-import { useRef, useState } from "react";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
-// import { useSession } from "next-auth/react";
 
-//Firebase functions
-// import { db, storage } from "../firebase";
-// import { addDoc, collection, doc, serverTimestamp, updateDoc } from "@firebase/firestore";
-// import { getDownloadURL, ref, uploadString } from "@firebase/storage";
+import { AuthContext } from "../store";
 
 function Input() {
   const [input, setInput] = useState("");
@@ -18,15 +14,18 @@ function Input() {
   const [showEmojis, setShowEmojis] = useState(false);
   const [loading, setLoading] = useState(false);
   const filePickerRef = useRef(null);
-  // const { data: session } = useSession();
+  const { user } = useContext(AuthContext);
 
+  // console.log("user", user);
   const sendPost = async () => {
-    // if (loading) return;
+    if (loading) return;
     // setLoading(true);
     try {
       await DataStore.save(
         new Post({
           content: input,
+          // image:
+          userID: user?.id,
         })
       );
       console.log("Post saved successfully!");
@@ -83,7 +82,7 @@ function Input() {
 
   return (
     <div className={`border-b border-gray-700 p-3 flex space-x-3 overflow-y-scroll ${loading && "opacity-60"} `}>
-      {/* <img src={session.user.image} alt="" className="h-11 w-11 rounded-full cursor-pointer" /> */}
+      <img src={user?.picture} alt="" className="h-11 w-11 rounded-full cursor-pointer" />
       <div className="w-full divide-y divide-gray-700">
         <div className={`${selectedFile && "pb-7"} ${input && "space-y-2.5"}`}>
           <textarea

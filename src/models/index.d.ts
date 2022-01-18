@@ -33,7 +33,7 @@ export declare class User {
   readonly email: string;
   readonly name?: string;
   readonly tag?: string;
-  readonly imageUri?: string;
+  readonly picture?: string;
   readonly lastOnlineAt?: string;
   readonly Posts?: (Post | null)[];
   readonly createdAt?: string;

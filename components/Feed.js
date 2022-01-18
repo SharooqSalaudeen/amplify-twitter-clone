@@ -1,5 +1,5 @@
 import Amplify, { DataStore, Predicates, SortDirection } from "aws-amplify";
-import { Post, PostStatus } from "../src/models";
+import { Post, PostStatus, User } from "../src/models";
 
 import { SparklesIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ import PostComponent from "./Post";
 function Feed() {
   // const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
-  // console.log("posts", posts);
+  console.log("posts", posts);
 
   // useEffect(async () => {
   //   try {
@@ -24,24 +24,30 @@ function Feed() {
   //   }
   // }, []);
 
-  useEffect(() => {
-    const subscription = DataStore.observeQuery(Post, Predicates.ALL, {
+  useEffect(async () => {
+    const _posts = await DataStore.query(Post, Predicates.ALL, {
       sort: (s) => s.createdAt(SortDirection.DESCENDING),
-    }).subscribe((snapshot) => {
-      const { items, isSynced } = snapshot;
-      // console.log(`Posts item count: ${items.length}, isSynced: ${isSynced}`);
-      // console.log("items", items);
-      setPosts(items);
     });
+    setPosts(_posts);
+  }, []);
+
+  useEffect(() => {
+    const subscription = DataStore.observe(Post).subscribe((snapshot) => {
+      if (snapshot.opType === "INSERT" && snapshot.model === Post) {
+        setPosts((posts) => [snapshot.element, ...posts]);
+      }
+      // setPosts(items);
+    });
+    return () => subscription.unsubscribe();
   }, []);
 
   // useEffect(() => {
-  //   const subscription = DataStore.observe(Post).subscribe((msg) => {
-  //     console.log("Post subscription model", msg.model);
-  //     console.log("Post subscription opType", msg.opType);
-  //     console.log("Post subscription elemnt", msg.element);
+  //   const subscription = DataStore.observeQuery(Post, Predicates.ALL, {
+  //     sort: (s) => s.createdAt(SortDirection.DESCENDING),
+  //   }).subscribe((snapshot) => {
+  //     const { items, isSynced } = snapshot;
+  //     setPosts(items);
   //   });
-
   //   return () => subscription.unsubscribe();
   // }, []);
 
@@ -65,7 +71,7 @@ function Feed() {
       <Input />
       <div className="pb-72">
         {posts.map((post) => (
-          <PostComponent key={post.id} id={post.id} post={post} />
+          <PostComponent key={post.id} post={post} />
         ))}
       </div>
     </div>

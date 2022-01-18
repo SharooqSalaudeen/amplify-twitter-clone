@@ -37,7 +37,7 @@ export async function getServerSideProps(context) {
 
 export default function Home({ trendingResults, followResults, authenticated, user }) {
   const [isOpen, setIsOpen] = useRecoilState(modalState);
-  console.log("user", user);
+  // console.log("user", user);
 
   return (
     <div className="">

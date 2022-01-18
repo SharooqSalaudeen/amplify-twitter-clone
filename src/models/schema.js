@@ -127,8 +127,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "imageUri": {
-                    "name": "imageUri",
+                "picture": {
+                    "name": "picture",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -296,5 +296,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "6426be1d828507b2fa090bf80b599df3"
+    "version": "35c310b6eb97273c302d437bd4acdff6"
 };

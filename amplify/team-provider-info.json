@@ -19,7 +19,7 @@
       "function": {
         "TwitterClonePostConfirmation": {
           "deploymentBucketName": "amplify-amplify82d5055b45aa4-staging-61645-deployment",
-          "s3Key": "amplify-builds/TwitterClonePostConfirmation-78714244585254515274-build.zip"
+          "s3Key": "amplify-builds/TwitterClonePostConfirmation-6a37737150646869634f-build.zip"
         }
       }
     }

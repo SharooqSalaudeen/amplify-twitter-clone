@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { AuthContext } from "../store";
 
 import checkUser from "../helpers/checkUser";
 
@@ -31,9 +32,10 @@ export async function getServerSideProps(context) {
 
 export default function Main() {
   const router = useRouter();
-  const user = checkUser();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
+    // if (user) {
     if (user) {
       router.push("/home");
     }

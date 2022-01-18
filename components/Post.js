@@ -1,4 +1,3 @@
-// import { collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc } from "@firebase/firestore";
 import {
   ChartBarIcon,
   ChatIcon,
@@ -15,18 +14,26 @@ import { useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "../atoms/modalAtom";
+import { DataStore } from "aws-amplify";
+// import {User} from "../src/models"
+import { User } from "../src/models";
 // import { db } from "../firebase";
 
-function Post({ id, post, postPage }) {
+function Post({ post, postPage }) {
   // const { data: session } = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [postId, setPostId] = useRecoilState(postIdState);
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
+  const [author, setAuthor] = useState({});
   const router = useRouter();
 
-  console.log("post", post);
+  useEffect(async () => {
+    const _author = await DataStore.query(User, (user) => user.id("eq", post.userID));
+    console.log("author", _author);
+    setAuthor(_author[0]);
+  }, [post]);
 
   // useEffect(() => {
   //   onSnapshot(query(collection(db, "posts", id, "comments"), orderBy("timestamp", "desc")), (snapshot) =>
@@ -49,11 +56,11 @@ function Post({ id, post, postPage }) {
   };
 
   return (
-    <div className="p-3 flex cursor-pointer border-b border-gray-700" onClick={() => router.push(`/${id}`)}>
-      {/* {!postPage && <img src={post.userImg} alt="" className="h-11 w-11 rounded-full mr-4" />} */}
+    <div className="p-3 flex cursor-pointer border-b border-gray-700" onClick={() => router.push(`/${post.id}`)}>
+      {!postPage && <img src={author?.picture} alt="" className="h-11 w-11 rounded-full mr-4" />}
       <div className="flex flex-col space-y-2 w-full">
         <div className={`flex ${!postPage && "justify-between"}`}>
-          {/* {postPage && <img src={post?.userImg} alt="Profile Pic" className="h-11 w-11 rounded-full mr-4" />} */}
+          {postPage && <img src={author?.picture} alt="Profile Pic" className="h-11 w-11 rounded-full mr-4" />}
           <div className="text-[#6e767d]">
             <div className="inline-block group">
               <h4
@@ -61,9 +68,9 @@ function Post({ id, post, postPage }) {
                   !postPage && "inline-block"
                 }`}
               >
-                {/* {post?.username} */}
+                {author?.name}
               </h4>
-              {/* <span className={`text-sm sm:text-[15px] ${!postPage && "ml-1.5"}`}>@{post?.tag}</span> */}
+              <span className={`text-sm sm:text-[15px] ${!postPage && "ml-1.5"}`}>@{author?.tag}</span>
             </div>
             ·{" "}
             <span className="hover:underline text-sm sm:text-[15px]">

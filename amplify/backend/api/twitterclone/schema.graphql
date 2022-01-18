@@ -1,11 +1,11 @@
-type Comment @model @auth(rules: [{allow: public}]) {
+type Comment @model @auth(rules: [{ allow: public }]) {
   id: ID!
   content: String
   postID: ID @index(name: "byPost")
   User: User @hasOne
 }
 
-type Post @model @auth(rules: [{allow: public}]) {
+type Post @model @auth(rules: [{ allow: public }]) {
   id: ID!
   content: String
   image: String
@@ -13,12 +13,12 @@ type Post @model @auth(rules: [{allow: public}]) {
   Comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
 }
 
-type User @model @auth(rules: [{allow: public}]) {
+type User @model @auth(rules: [{ allow: public }]) {
   id: ID!
   email: AWSEmail!
   name: String
   tag: String
-  imageUri: String
+  picture: String
   lastOnlineAt: String
   Posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])
 }

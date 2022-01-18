@@ -24,7 +24,7 @@ exports.handler = async (event) => {
     id: { S: event.request.userAttributes.sub },
     email: { S: event.request.userAttributes.email },
     name: { S: event.request.userAttributes.name },
-    imageUri: { S: event.request.userAttributes.picture },
+    picture: { S: event.request.userAttributes.picture },
   };
 
   const params = {
