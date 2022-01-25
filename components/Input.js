@@ -1,12 +1,12 @@
 import { useRef, useEffect, useState, useContext } from "react";
-import Amplify, { DataStore, Predicates } from "aws-amplify";
+import Amplify, { API, Predicates } from "aws-amplify";
 
 import { CalendarIcon, ChartBarIcon, EmojiHappyIcon, PhotographIcon, XIcon } from "@heroicons/react/outline";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
 
 import { AuthContext } from "../store";
-import { PostModel } from "../src";
+import * as mutations from "../src/graphql/mutations";
 
 function Input() {
   const [input, setInput] = useState("");
@@ -20,13 +20,7 @@ function Input() {
     if (loading) return;
     setLoading(true);
     try {
-      await DataStore.save(
-        new PostModel({
-          content: input,
-          // image:
-          userID: user?.id,
-        })
-      );
+      await API.graphql({ query: mutations.createPost, variables: { input: { userID: user?.id, content: input } } });
       console.log("Post saved successfully!");
     } catch (error) {
       console.log("Error saving post", error);

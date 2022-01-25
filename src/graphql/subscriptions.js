@@ -1,6 +1,64 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreatePostByUserId = /* GraphQL */ `
+  subscription OnCreatePostByUserId($userID: ID!) {
+    onCreatePostByUserId(userID: $userID) {
+      id
+      content
+      image
+      userID
+      Comments {
+        items {
+          id
+          content
+          postID
+          createdAt
+          updatedAt
+          commentUserId
+        }
+        nextToken
+      }
+      Likes {
+        items {
+          id
+          postID
+          createdAt
+          updatedAt
+          likeUserId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUserById = /* GraphQL */ `
+  subscription OnUpdateUserById($id: ID!) {
+    onUpdateUserById(id: $id) {
+      id
+      email
+      name
+      tag
+      picture
+      lastOnlineAt
+      Posts {
+        items {
+          id
+          content
+          image
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateLike = /* GraphQL */ `
   subscription OnCreateLike {
     onCreateLike {
@@ -15,19 +73,12 @@ export const onCreateLike = /* GraphQL */ `
         lastOnlineAt
         Posts {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       likeUserId
     }
   }
@@ -46,19 +97,12 @@ export const onUpdateLike = /* GraphQL */ `
         lastOnlineAt
         Posts {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       likeUserId
     }
   }
@@ -77,19 +121,12 @@ export const onDeleteLike = /* GraphQL */ `
         lastOnlineAt
         Posts {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       likeUserId
     }
   }
@@ -109,19 +146,12 @@ export const onCreateComment = /* GraphQL */ `
         lastOnlineAt
         Posts {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       commentUserId
     }
   }
@@ -141,19 +171,12 @@ export const onUpdateComment = /* GraphQL */ `
         lastOnlineAt
         Posts {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       commentUserId
     }
   }
@@ -173,19 +196,12 @@ export const onDeleteComment = /* GraphQL */ `
         lastOnlineAt
         Posts {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       commentUserId
     }
   }
@@ -204,13 +220,9 @@ export const onCreatePost = /* GraphQL */ `
           postID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           commentUserId
         }
         nextToken
-        startedAt
       }
       Likes {
         items {
@@ -218,19 +230,12 @@ export const onCreatePost = /* GraphQL */ `
           postID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           likeUserId
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -248,13 +253,9 @@ export const onUpdatePost = /* GraphQL */ `
           postID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           commentUserId
         }
         nextToken
-        startedAt
       }
       Likes {
         items {
@@ -262,19 +263,12 @@ export const onUpdatePost = /* GraphQL */ `
           postID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           likeUserId
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -292,13 +286,9 @@ export const onDeletePost = /* GraphQL */ `
           postID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           commentUserId
         }
         nextToken
-        startedAt
       }
       Likes {
         items {
@@ -306,19 +296,12 @@ export const onDeletePost = /* GraphQL */ `
           postID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           likeUserId
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -339,18 +322,11 @@ export const onCreateUser = /* GraphQL */ `
           userID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -371,18 +347,11 @@ export const onUpdateUser = /* GraphQL */ `
           userID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -403,18 +372,11 @@ export const onDeleteUser = /* GraphQL */ `
           userID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;

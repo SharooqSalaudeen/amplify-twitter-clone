@@ -7,9 +7,8 @@ import Post from "../components/Post";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import Comment from "../components/Comment";
 import Head from "next/head";
-import { PostModel, UserModel } from "../src";
 
-import { DataStore, withSSRContext } from "aws-amplify";
+import { withSSRContext } from "aws-amplify";
 import "../configureAmplify";
 import { GeneralContext } from "../store";
 
@@ -47,15 +46,15 @@ function PostPage({ trendingResults, followResults, user }) {
   const { id } = router.query;
 
   useEffect(async () => {
-    const _post = await DataStore.query(PostModel, (post) => post.id("eq", id));
-    setPost(_post[0]);
+    // const _post = await DataStore.query(PostModel, (post) => post.id("eq", id));
+    // setPost(_post[0]);
   }, []);
 
   useEffect(async () => {
-    if (post) {
-      const _author = await DataStore.query(UserModel, (user) => user.id("eq", post?.userID));
-      setAuthor(_author[0]);
-    }
+    // if (post) {
+    //   const _author = await DataStore.query(UserModel, (user) => user.id("eq", post?.userID));
+    //   setAuthor(_author[0]);
+    // }
   }, [post]);
 
   // useEffect(

@@ -7,7 +7,7 @@ import { AuthContext } from "../store";
 import checkUser from "../helpers/checkUser";
 
 //Amplify ------------------------------
-import Amplify, { Auth, Hub, DataStore, Predicates } from "aws-amplify";
+import { Auth } from "aws-amplify";
 import { withSSRContext } from "aws-amplify";
 import "../configureAmplify";
 

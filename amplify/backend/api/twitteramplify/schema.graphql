@@ -11,7 +11,7 @@ type Comment @searchable @model @auth(rules: [{ allow: public }]) {
   User: User @hasOne
 }
 
-type Post @model @auth(rules: [{ allow: public }]) {
+type Post @searchable @model @auth(rules: [{ allow: public }]) {
   id: ID!
   content: String
   image: String
@@ -20,7 +20,7 @@ type Post @model @auth(rules: [{ allow: public }]) {
   Likes: [Like] @hasMany(indexName: "byPost", fields: ["id"])
 }
 
-type User @model @auth(rules: [{ allow: public }]) {
+type User @searchable @model @auth(rules: [{ allow: public }]) {
   id: ID!
   email: AWSEmail!
   name: String
@@ -28,4 +28,9 @@ type User @model @auth(rules: [{ allow: public }]) {
   picture: String
   lastOnlineAt: String
   Posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+type Subscription {
+  onCreatePostByUserId(userID: ID!): Post @aws_subscribe(mutations: ["createPost"])
+  onUpdateUserById(id: ID!): User @aws_subscribe(mutations: ["updateUser"])
 }

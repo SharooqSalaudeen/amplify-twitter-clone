@@ -11,9 +11,8 @@ import { HeartIcon as HeartIconFilled, ChatIcon as ChatIconFilled } from "@heroi
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import Moment from "react-moment";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
 import { AuthContext, GeneralContext } from "../store";
-import { CommentModel, LikeModel, PostModel, UserModel } from "../src";
 
 function Post({ post, postPage }) {
   const { user } = useContext(AuthContext);
@@ -24,52 +23,48 @@ function Post({ post, postPage }) {
   const [author, setAuthor] = useState({});
   const router = useRouter();
 
-  // useEffect(() => {
-  //   DataStore.clear();
-  // }, []);
-
   //set post author
   useEffect(async () => {
-    const _author = await DataStore.query(UserModel, (user) => user.id("eq", post?.userID));
-    setAuthor(_author[0]);
+    // const _author = await DataStore.query(UserModel, (user) => user.id("eq", post?.userID));
+    // setAuthor(_author[0]);
   }, [post]);
 
   //set post comments (use graphql elasticsearch)
   useEffect(async () => {
-    const _comments = await DataStore.query(CommentModel, (comment) => comment.postID("eq", post?.id));
-    setComments(_comments);
+    // const _comments = await DataStore.query(CommentModel, (comment) => comment.postID("eq", post?.id));
+    // setComments(_comments);
   }, [post]);
 
   //set post like count
   useEffect(async () => {
-    const _post = await DataStore.query(LikeModel, (like) => like.postID("eq", post?.id));
-    // const _post = await DataStore.observeQuery(LikeModel, (like) => like.postID("eq", post?.id));
-    setLikes(_post);
+    // const _post = await DataStore.query(LikeModel, (like) => like.postID("eq", post?.id));
+    // // const _post = await DataStore.observeQuery(LikeModel, (like) => like.postID("eq", post?.id));
+    // setLikes(_post);
   }, [post]);
 
   //check if i have liked the post
   useEffect(async () => {
-    const _liked = await DataStore.query(LikeModel, (like) => like.postID("eq", post?.id).likeUserId("eq", user?.id));
-    if (_liked.length > 0) {
-      setLiked(_liked[0]);
-    } else {
-      setLiked(false);
-    }
+    // const _liked = await DataStore.query(LikeModel, (like) => like.postID("eq", post?.id).likeUserId("eq", user?.id));
+    // if (_liked.length > 0) {
+    //   setLiked(_liked[0]);
+    // } else {
+    //   setLiked(false);
+    // }
   }, [post]);
 
   // useEffect(() => setLiked(likes.findIndex((like) => like.id === session?.user?.uid) !== -1), [likes]);
 
   const likePost = async () => {
-    if (liked) {
-      await DataStore.delete(liked);
-    } else {
-      await DataStore.save(
-        new LikeModel({
-          postID: post?.id,
-          likeUserId: user?.id,
-        })
-      );
-    }
+    // if (liked) {
+    //   await DataStore.delete(liked);
+    // } else {
+    //   await DataStore.save(
+    //     new LikeModel({
+    //       postID: post?.id,
+    //       likeUserId: user?.id,
+    //     })
+    //   );
+    // }
   };
 
   // if (liked) {
@@ -80,11 +75,7 @@ function Post({ post, postPage }) {
   //   });
   // }
 
-  const deletePost = async () => {
-    await DataStore.delete(post);
-    // const _postid = "22573698-c5c9-4193-b768-188f812c46eb";
-    // DataStore.delete(LikeModel, (like) => like.id("eq", _postid));
-  };
+  const deletePost = async () => {};
 
   return (
     <div className="p-3 flex cursor-pointer border-b border-gray-700" onClick={() => router.push(`/${post?.id}`)}>

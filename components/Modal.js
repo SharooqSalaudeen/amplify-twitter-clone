@@ -7,8 +7,6 @@ import { CalendarIcon, ChartBarIcon, EmojiHappyIcon, PhotographIcon, XIcon } fro
 import { useRouter } from "next/router";
 import Moment from "react-moment";
 import { AuthContext, GeneralContext } from "../store";
-import { DataStore } from "aws-amplify";
-import { PostModel } from "../src";
 
 function Modal() {
   const { user } = useContext(AuthContext);
@@ -24,8 +22,8 @@ function Modal() {
   // }, [db]);
 
   useEffect(() => {
-    const _post = DataStore.query(PostModel, selectedPostID);
-    console.log("modal post ", _post);
+    // const _post = DataStore.query(PostModel, selectedPostID);
+    // console.log("modal post ", _post);
   }, [selectedPostID]);
 
   const sendComment = async (e) => {

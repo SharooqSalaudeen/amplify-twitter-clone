@@ -1,26 +1,28 @@
-import Amplify, { DataStore, Predicates, SortDirection } from "aws-amplify";
+import Amplify, { API, Predicates, SortDirection } from "aws-amplify";
 import { SparklesIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import Input from "./Input";
 import PostComponent from "./Post";
-import { PostModel } from "../src";
+import * as queries from "../src/graphql/queries";
+import * as subscriptions from "../src/graphql/subscriptions";
 
 function Feed() {
   const [posts, setPosts] = useState([]);
 
+  console.log("posts", posts);
+
   useEffect(async () => {
-    const _posts = await DataStore.query(PostModel, Predicates.ALL, {
-      sort: (s) => s.createdAt(SortDirection.DESCENDING),
-    });
-    setPosts(_posts);
+    const { data } = await API.graphql({ query: queries.listPosts, variables: { limit: 30 } });
+    setPosts(data.listPosts.items);
   }, []);
 
   useEffect(() => {
-    const subscription = DataStore.observe(PostModel).subscribe((snapshot) => {
-      if (snapshot.opType === "INSERT" && snapshot.model === PostModel) {
-        setPosts((posts) => [snapshot.element, ...posts]);
-      }
+    const subscription = API.graphql({ query: subscriptions.onCreatePost }).subscribe({
+      next: ({ value }) => {
+        setPosts((prevState) => [value.data.onCreatePost, ...prevState]);
+      },
     });
+
     return () => subscription.unsubscribe();
   }, []);
 
@@ -43,7 +45,7 @@ function Feed() {
       </div>
       <Input />
       <div className="pb-72">
-        {posts.map((post) => (
+        {posts?.map((post) => (
           <PostComponent key={post.id} post={post} />
         ))}
       </div>
