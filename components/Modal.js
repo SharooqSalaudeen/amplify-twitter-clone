@@ -1,18 +1,18 @@
-import { useRecoilState } from "recoil";
-import { modalState, postIdState } from "../atoms/modalAtom";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 // import { onSnapshot, doc, addDoc, collection, serverTimestamp } from "@firebase/firestore";
 // import { db } from "../firebase";
 // import { useSession } from "next-auth/react";
 import { CalendarIcon, ChartBarIcon, EmojiHappyIcon, PhotographIcon, XIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import Moment from "react-moment";
+import { AuthContext, GeneralContext } from "../store";
+import { DataStore } from "aws-amplify";
+import { PostModel } from "../src";
 
 function Modal() {
-  // const { data: session } = useSession();
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
-  const [postId, setPostId] = useRecoilState(postIdState);
+  const { user } = useContext(AuthContext);
+  const { modalStateOpen, setModalStateOpen, selectedPostID } = useContext(GeneralContext);
   const [post, setPost] = useState();
   const [comment, setComment] = useState("");
   const router = useRouter();
@@ -22,6 +22,11 @@ function Modal() {
   //     setPost(snapshot.data());
   //   });
   // }, [db]);
+
+  useEffect(() => {
+    const _post = DataStore.query(PostModel, selectedPostID);
+    console.log("modal post ", _post);
+  }, [selectedPostID]);
 
   const sendComment = async (e) => {
     e.preventDefault();
@@ -34,15 +39,15 @@ function Modal() {
     //   timestamp: serverTimestamp(),
     // });
 
-    setIsOpen(false);
+    setModalStateOpen(false);
     setComment("");
 
-    router.push(`/${postId}`);
+    router.push(`/${selectedPostID}`);
   };
 
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="fixed z-50 inset-0 pt-8" onClose={setIsOpen}>
+    <Transition.Root show={modalStateOpen} as={Fragment}>
+      <Dialog as="div" className="fixed z-50 inset-0 pt-8" onClose={setModalStateOpen}>
         <div className="flex items-start justify-center min-h-[800px] sm:min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -67,7 +72,10 @@ function Modal() {
           >
             <div className="inline-block align-bottom bg-black rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
               <div className="flex items-center px-1.5 py-2 border-b border-gray-700">
-                <div className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0" onClick={() => setIsOpen(false)}>
+                <div
+                  className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0"
+                  onClick={() => setModalStateOpen(false)}
+                >
                   <XIcon className="h-[22px] text-white" />
                 </div>
               </div>
@@ -90,7 +98,7 @@ function Modal() {
                   </div>
 
                   <div className="mt-7 flex space-x-3 w-full">
-                    <img src={session.user.image} alt="" className="h-11 w-11 rounded-full" />
+                    <img src={user?.picture} alt="" className="h-11 w-11 rounded-full" />
                     <div className="flex-grow mt-2">
                       <textarea
                         value={comment}

@@ -1,12 +1,12 @@
-import { useRef, useState, useContext } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import Amplify, { DataStore, Predicates } from "aws-amplify";
-import { Post, PostStatus } from "../src/models";
 
 import { CalendarIcon, ChartBarIcon, EmojiHappyIcon, PhotographIcon, XIcon } from "@heroicons/react/outline";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
 
 import { AuthContext } from "../store";
+import { PostModel } from "../src";
 
 function Input() {
   const [input, setInput] = useState("");
@@ -16,13 +16,12 @@ function Input() {
   const filePickerRef = useRef(null);
   const { user } = useContext(AuthContext);
 
-  // console.log("user", user);
   const sendPost = async () => {
     if (loading) return;
-    // setLoading(true);
+    setLoading(true);
     try {
       await DataStore.save(
-        new Post({
+        new PostModel({
           content: input,
           // image:
           userID: user?.id,
@@ -33,29 +32,7 @@ function Input() {
       console.log("Error saving post", error);
     }
 
-    // const docRef = await addDoc(collection(db, "posts"), {
-    //   id: session.user.uid,
-    //   username: session.user.name,
-    //   userImg: session.user.image,
-    //   tag: session.user.tag,
-    //   text: input,
-    //   timestamp: serverTimestamp(),
-    // });
-
-    // console.log("doc ref id ", docRef.id);
-
-    // const imageRef = ref(storage, `posts/${docRef.id}/image`);
-
-    // if (selectedFile) {
-    //   await uploadString(imageRef, selectedFile, "data_url").then(async () => {
-    //     const downloadURL = await getDownloadURL(imageRef);
-    //     await updateDoc(doc(db, "posts", docRef.id), {
-    //       image: downloadURL,
-    //     });
-    //   });
-    // }
-
-    // setLoading(false);
+    setLoading(false);
     setInput("");
     setSelectedFile(null);
     setShowEmojis(false);

@@ -12,11 +12,8 @@ import {
 } from "@heroicons/react/outline";
 import SidebarLink from "./SidebarLink";
 import { Auth } from "aws-amplify";
-// import { signOut, useSession } from "next-auth/react";
 
 function Sidebar({ user }) {
-  // const { data: session } = useSession();
-
   return (
     <div className="hidden sm:flex flex-col items-center xl:items-start xl:w-[340px] p-2 fixed left-0 h-full xl:ml-24">
       <div className="flex items-center justify-center w-14 h-14 hoverAnimation p-0 ">

@@ -1,25 +1,25 @@
 {
   "staging": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-amplify82d5055b45aa4-staging-61645-authRole",
-      "UnauthRoleArn": "arn:aws:iam::456464529604:role/amplify-amplify82d5055b45aa4-staging-61645-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::456464529604:role/amplify-amplify82d5055b45aa4-staging-61645-authRole",
+      "AuthRoleName": "amplify-twitteramplify-staging-233144-authRole",
+      "UnauthRoleArn": "arn:aws:iam::456464529604:role/amplify-twitteramplify-staging-233144-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::456464529604:role/amplify-twitteramplify-staging-233144-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-amplify82d5055b45aa4-staging-61645-deployment",
-      "UnauthRoleName": "amplify-amplify82d5055b45aa4-staging-61645-unauthRole",
-      "StackName": "amplify-amplify82d5055b45aa4-staging-61645",
-      "StackId": "arn:aws:cloudformation:us-east-2:456464529604:stack/amplify-amplify82d5055b45aa4-staging-61645/38334150-736f-11ec-8218-06cad64a39e8",
-      "AmplifyAppId": "d2aea8uzoaeodj",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-amplify82d5055b45aa4-staging-61645-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+      "DeploymentBucketName": "amplify-twitteramplify-staging-233144-deployment",
+      "UnauthRoleName": "amplify-twitteramplify-staging-233144-unauthRole",
+      "StackName": "amplify-twitteramplify-staging-233144",
+      "StackId": "arn:aws:cloudformation:us-east-2:456464529604:stack/amplify-twitteramplify-staging-233144/a0d028c0-7ca4-11ec-a236-02e42fe6017a",
+      "AmplifyAppId": "d3jelcfirikz7e",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-twitteramplify-staging-233144-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
-        "TwitterClone": {}
+        "twitteramplify2839776928397769": {}
       },
       "function": {
-        "TwitterClonePostConfirmation": {
-          "deploymentBucketName": "amplify-amplify82d5055b45aa4-staging-61645-deployment",
-          "s3Key": "amplify-builds/TwitterClonePostConfirmation-6a37737150646869634f-build.zip"
+        "twitteramplify2839776928397769PostConfirmation": {
+          "deploymentBucketName": "amplify-twitteramplify-staging-233144-deployment",
+          "s3Key": "amplify-builds/twitteramplify2839776928397769PostConfirmation-70664d75517338475854-build.zip"
         }
       }
     }

@@ -4,7 +4,7 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
-type CommentMetaData = {
+type LikeMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -16,16 +16,19 @@ type PostMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class Comment {
+type CommentMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+export declare class Like {
   readonly id: string;
-  readonly content?: string;
   readonly postID?: string;
   readonly User?: User;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  readonly commentUserId?: string;
-  constructor(init: ModelInit<Comment, CommentMetaData>);
-  static copyOf(source: Comment, mutator: (draft: MutableModel<Comment, CommentMetaData>) => MutableModel<Comment, CommentMetaData> | void): Comment;
+  readonly likeUserId?: string;
+  constructor(init: ModelInit<Like, LikeMetaData>);
+  static copyOf(source: Like, mutator: (draft: MutableModel<Like, LikeMetaData>) => MutableModel<Like, LikeMetaData> | void): Like;
 }
 
 export declare class User {
@@ -48,8 +51,21 @@ export declare class Post {
   readonly image?: string;
   readonly userID?: string;
   readonly Comments?: (Comment | null)[];
+  readonly Likes?: (Like | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Post, PostMetaData>);
   static copyOf(source: Post, mutator: (draft: MutableModel<Post, PostMetaData>) => MutableModel<Post, PostMetaData> | void): Post;
+}
+
+export declare class Comment {
+  readonly id: string;
+  readonly content?: string;
+  readonly postID?: string;
+  readonly User?: User;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  readonly commentUserId?: string;
+  constructor(init: ModelInit<Comment, CommentMetaData>);
+  static copyOf(source: Comment, mutator: (draft: MutableModel<Comment, CommentMetaData>) => MutableModel<Comment, CommentMetaData> | void): Comment;
 }

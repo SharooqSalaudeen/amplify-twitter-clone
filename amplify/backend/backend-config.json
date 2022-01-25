@@ -1,6 +1,6 @@
 {
   "api": {
-    "TwitterClone": {
+    "twitteramplify": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -8,27 +8,29 @@
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 30,
-              "description": "api key description"
+              "apiKeyExpirationDays": 7
             }
           },
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "AWS_IAM"
-            }
-          ]
+          "additionalAuthenticationProviders": []
         }
       }
     }
   },
+  "function": {
+    "twitteramplify2839776928397769PostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "auth": {
-    "TwitterClone": {
+    "twitteramplify2839776928397769": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "TwitterClonePostConfirmation",
+          "resourceName": "twitteramplify2839776928397769PostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -51,12 +53,7 @@
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": [
-            "REQUIRES_LOWERCASE",
-            "REQUIRES_NUMBERS",
-            "REQUIRES_SYMBOLS",
-            "REQUIRES_UPPERCASE"
-          ]
+          "passwordPolicyCharacters": []
         },
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -66,13 +63,6 @@
           "EMAIL"
         ]
       }
-    }
-  },
-  "function": {
-    "TwitterClonePostConfirmation": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
     }
   }
 }

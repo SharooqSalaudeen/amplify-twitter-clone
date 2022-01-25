@@ -8,55 +8,86 @@ import {
   TrashIcon,
 } from "@heroicons/react/outline";
 import { HeartIcon as HeartIconFilled, ChatIcon as ChatIconFilled } from "@heroicons/react/solid";
-// import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Moment from "react-moment";
-import { useRecoilState } from "recoil";
-import { modalState, postIdState } from "../atoms/modalAtom";
 import { DataStore } from "aws-amplify";
-// import {User} from "../src/models"
-import { User } from "../src/models";
-// import { db } from "../firebase";
+import { AuthContext, GeneralContext } from "../store";
+import { CommentModel, LikeModel, PostModel, UserModel } from "../src";
 
 function Post({ post, postPage }) {
-  // const { data: session } = useSession();
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
-  const [postId, setPostId] = useRecoilState(postIdState);
+  const { user } = useContext(AuthContext);
+  const { setModalStateOpen, setSelectedPostID, modalStateOpen, selectedPostID } = useContext(GeneralContext);
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const [author, setAuthor] = useState({});
   const router = useRouter();
 
+  // useEffect(() => {
+  //   DataStore.clear();
+  // }, []);
+
+  //set post author
   useEffect(async () => {
-    const _author = await DataStore.query(User, (user) => user.id("eq", post.userID));
-    console.log("author", _author);
+    const _author = await DataStore.query(UserModel, (user) => user.id("eq", post?.userID));
     setAuthor(_author[0]);
   }, [post]);
 
-  // useEffect(() => {
-  //   onSnapshot(query(collection(db, "posts", id, "comments"), orderBy("timestamp", "desc")), (snapshot) =>
-  //     setComments(snapshot.docs)
-  //   );
-  // }, [db, id]);
+  //set post comments (use graphql elasticsearch)
+  useEffect(async () => {
+    const _comments = await DataStore.query(CommentModel, (comment) => comment.postID("eq", post?.id));
+    setComments(_comments);
+  }, [post]);
 
-  // useEffect(() => onSnapshot(collection(db, "posts", id, "likes"), (snapshot) => setLikes(snapshot.docs)), [db, id]);
+  //set post like count
+  useEffect(async () => {
+    const _post = await DataStore.query(LikeModel, (like) => like.postID("eq", post?.id));
+    // const _post = await DataStore.observeQuery(LikeModel, (like) => like.postID("eq", post?.id));
+    setLikes(_post);
+  }, [post]);
+
+  //check if i have liked the post
+  useEffect(async () => {
+    const _liked = await DataStore.query(LikeModel, (like) => like.postID("eq", post?.id).likeUserId("eq", user?.id));
+    if (_liked.length > 0) {
+      setLiked(_liked[0]);
+    } else {
+      setLiked(false);
+    }
+  }, [post]);
 
   // useEffect(() => setLiked(likes.findIndex((like) => like.id === session?.user?.uid) !== -1), [likes]);
 
   const likePost = async () => {
-    // if (liked) {
-    //   await deleteDoc(doc(db, "posts", id, "likes", session.user.uid));
-    // } else {
-    //   await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
-    //     username: session.user.name,
-    //   });
-    // }
+    if (liked) {
+      await DataStore.delete(liked);
+    } else {
+      await DataStore.save(
+        new LikeModel({
+          postID: post?.id,
+          likeUserId: user?.id,
+        })
+      );
+    }
+  };
+
+  // if (liked) {
+  //   await deleteDoc(doc(db, "posts", id, "likes", session.user.uid));
+  // } else {
+  //   await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
+  //     username: session.user.name,
+  //   });
+  // }
+
+  const deletePost = async () => {
+    await DataStore.delete(post);
+    // const _postid = "22573698-c5c9-4193-b768-188f812c46eb";
+    // DataStore.delete(LikeModel, (like) => like.id("eq", _postid));
   };
 
   return (
-    <div className="p-3 flex cursor-pointer border-b border-gray-700" onClick={() => router.push(`/${post.id}`)}>
+    <div className="p-3 flex cursor-pointer border-b border-gray-700" onClick={() => router.push(`/${post?.id}`)}>
       {!postPage && <img src={author?.picture} alt="" className="h-11 w-11 rounded-full mr-4" />}
       <div className="flex flex-col space-y-2 w-full">
         <div className={`flex ${!postPage && "justify-between"}`}>
@@ -83,14 +114,14 @@ function Post({ post, postPage }) {
           </div>
         </div>
         {postPage && <p className="text-[#d9d9d9] mt-0.5 text-xl">{post?.content}</p>}
-        {/* <img src={post?.image} alt="" className="rounded-2xl max-h-[700px] object-cover mr-2" /> */}
+        {post?.image && <img src={post?.image} alt="" className="rounded-2xl max-h-[700px] object-cover mr-2" />}
         <div className={`text-[#6e767d] flex justify-between w-10/12 ${postPage && "mx-auto"}`}>
           <div
             className="flex items-center space-x-1 group"
             onClick={(e) => {
               e.stopPropagation();
-              setPostId(id);
-              setIsOpen(true);
+              setSelectedPostID(post?.id);
+              setModalStateOpen(true);
             }}
           >
             <div className="icon group-hover:bg-[#1d9bf0] group-hover:bg-opacity-10">
@@ -98,14 +129,14 @@ function Post({ post, postPage }) {
             </div>
             {comments.length > 0 && <span className="group-hover:text-[#1d9bf0] text-sm">{comments.length}</span>}
           </div>
-          {/* 
-          {session.user.uid === post?.id ? (
+
+          {user && user?.id === post?.userID ? (
             <div
               className="flex items-center space-x-1 group"
               onClick={(e) => {
                 e.stopPropagation();
-                deleteDoc(doc(db, "posts", id));
-                router.push("/");
+                deletePost();
+                // router.push("/home");
               }}
             >
               <div className="icon group-hover:bg-red-600/10">
@@ -118,7 +149,7 @@ function Post({ post, postPage }) {
                 <SwitchHorizontalIcon className="h-5 group-hover:text-green-500" />
               </div>
             </div>
-          )} */}
+          )}
 
           <div
             className="flex items-center space-x-1 group"

@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Head from "next/head";
 import Feed from "../components/Feed";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
 import Modal from "../components/Modal";
-import { modalState, userState } from "../atoms/modalAtom";
-import { useRecoilState } from "recoil";
 
-import Amplify, { Auth, Hub, DataStore, Predicates, withSSRContext } from "aws-amplify";
+import { withSSRContext } from "aws-amplify";
 import "../configureAmplify";
+import { GeneralContext } from "../store";
 
 export async function getServerSideProps(context) {
   const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then((res) => res.json());
@@ -36,8 +35,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home({ trendingResults, followResults, authenticated, user }) {
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
-  // console.log("user", user);
+  const { modalStateOpen } = useContext(GeneralContext);
 
   return (
     <div className="">
@@ -50,7 +48,7 @@ export default function Home({ trendingResults, followResults, authenticated, us
         <Feed />
         <Widgets trendingResults={trendingResults} followResults={followResults} />
 
-        {isOpen && <Modal />}
+        {modalStateOpen && <Modal />}
       </main>
     </div>
   );

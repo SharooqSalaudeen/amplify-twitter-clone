@@ -1,55 +1,28 @@
 import Amplify, { DataStore, Predicates, SortDirection } from "aws-amplify";
-import { Post, PostStatus, User } from "../src/models";
-
 import { SparklesIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import Input from "./Input";
-// import { onSnapshot, collection, query, orderBy } from "@firebase/firestore";
-// import { db } from "../firebase";
 import PostComponent from "./Post";
-// import { useSession } from "next-auth/react";
+import { PostModel } from "../src";
 
 function Feed() {
-  // const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
-  console.log("posts", posts);
-
-  // useEffect(async () => {
-  //   try {
-  //     const _posts = await DataStore.query(Post);
-  //     setPosts(_posts);
-  //     console.log("Posts retrieved successfully!", JSON.stringify(posts, null, 2));
-  //   } catch (error) {
-  //     console.log("Error retrieving posts", error);
-  //   }
-  // }, []);
 
   useEffect(async () => {
-    const _posts = await DataStore.query(Post, Predicates.ALL, {
+    const _posts = await DataStore.query(PostModel, Predicates.ALL, {
       sort: (s) => s.createdAt(SortDirection.DESCENDING),
     });
     setPosts(_posts);
   }, []);
 
   useEffect(() => {
-    const subscription = DataStore.observe(Post).subscribe((snapshot) => {
-      if (snapshot.opType === "INSERT" && snapshot.model === Post) {
+    const subscription = DataStore.observe(PostModel).subscribe((snapshot) => {
+      if (snapshot.opType === "INSERT" && snapshot.model === PostModel) {
         setPosts((posts) => [snapshot.element, ...posts]);
       }
-      // setPosts(items);
     });
     return () => subscription.unsubscribe();
   }, []);
-
-  // useEffect(() => {
-  //   const subscription = DataStore.observeQuery(Post, Predicates.ALL, {
-  //     sort: (s) => s.createdAt(SortDirection.DESCENDING),
-  //   }).subscribe((snapshot) => {
-  //     const { items, isSynced } = snapshot;
-  //     setPosts(items);
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, []);
 
   return (
     <div
