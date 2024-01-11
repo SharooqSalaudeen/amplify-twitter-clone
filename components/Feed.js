@@ -12,19 +12,23 @@ function Feed() {
   console.log("posts", posts);
 
   useEffect(async () => {
-    const { data } = await API.graphql({ query: queries.listPosts, variables: { limit: 30 } });
-    setPosts(data.listPosts.items);
-  }, []);
-
-  useEffect(() => {
-    const subscription = API.graphql({ query: subscriptions.onCreatePost }).subscribe({
-      next: ({ value }) => {
-        setPosts((prevState) => [value.data.onCreatePost, ...prevState]);
-      },
+    const { data } = await API.graphql({
+      query: queries.listPostsByDate,
+      variables: { type: "post", limit: 30, sortDirection: "DESC" },
     });
 
-    return () => subscription.unsubscribe();
+    setPosts(data.listPostsByDate.items);
   }, []);
+
+  // useEffect(() => {
+  //   const subscription = API.graphql({ query: subscriptions.onCreatePost }).subscribe({
+  //     next: ({ value }) => {
+  //       setPosts((prevState) => [value.data.onCreatePost, ...prevState]);
+  //     },
+  //   });
+
+  //   return () => subscription.unsubscribe();
+  // }, []);
 
   return (
     <div

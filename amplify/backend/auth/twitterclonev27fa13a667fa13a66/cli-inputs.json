@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "twitteramplify28397769_identitypool_28397769",
+    "identityPoolName": "twitterclonev27fa13a66_identitypool_7fa13a66",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "twitte28397769",
-    "userPoolName": "twitteramplify28397769_userpool_28397769",
+    "resourceNameTruncated": "twitte7fa13a66",
+    "userPoolName": "twitterclonev27fa13a66_userpool_7fa13a66",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -33,10 +33,10 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "twitte28397769_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "twitte7fa13a66_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "28397769",
-    "resourceName": "twitteramplify2839776928397769",
+    "sharedId": "7fa13a66",
+    "resourceName": "twitterclonev27fa13a667fa13a66",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
     "thirdPartyAuth": false,
@@ -51,15 +51,44 @@
       ]
     },
     "hostedUI": true,
-    "hostedUIDomainName": "twitteramplify28397769-28397769",
+    "hostedUIDomainName": "twitterclonev27fa13a66-7fa13a66",
     "authProvidersUserPool": [
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"picture\":\"picture\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "twitterclonev27fa13a667fa13a66PostConfirmation",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
+    "permissions": [],
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"twitterclonev27fa13a667fa13a66PostConfirmation\"\n  }\n]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    }
   }
 }

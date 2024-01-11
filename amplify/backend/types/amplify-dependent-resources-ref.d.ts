@@ -1,13 +1,13 @@
 export type AmplifyDependentResourcesAttributes = {
     "api": {
-        "twitteramplify": {
+        "twitterclonev2": {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }
     },
     "function": {
-        "twitteramplify2839776928397769PostConfirmation": {
+        "twitterclonev27fa13a667fa13a66PostConfirmation": {
             "Name": "string",
             "Arn": "string",
             "LambdaExecutionRole": "string",
@@ -15,7 +15,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "auth": {
-        "twitteramplify2839776928397769": {
+        "twitterclonev27fa13a667fa13a66": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "HostedUIDomain": "string",

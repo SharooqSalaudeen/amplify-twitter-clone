@@ -1,6 +1,6 @@
 {
   "api": {
-    "twitteramplify": {
+    "twitterclonev2": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -17,20 +17,20 @@
     }
   },
   "function": {
-    "twitteramplify2839776928397769PostConfirmation": {
+    "twitterclonev27fa13a667fa13a66PostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "auth": {
-    "twitteramplify2839776928397769": {
+    "twitterclonev27fa13a667fa13a66": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "twitteramplify2839776928397769PostConfirmation",
+          "resourceName": "twitterclonev27fa13a667fa13a66PostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",

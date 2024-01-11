@@ -1,0 +1,17 @@
+{
+  "trigger": true,
+  "modules": [
+    "custom"
+  ],
+  "parentResource": "twitterclonev27fa13a667fa13a66",
+  "functionName": "twitterclonev27fa13a667fa13a66PostConfirmation",
+  "resourceName": "twitterclonev27fa13a667fa13a66PostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": "[]",
+  "triggerDir": "/Users/sharooqsalaudeen/.nvm/versions/node/v16.13.2/lib/node_modules/@aws-amplify/cli/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "triggerEventPath": "PostConfirmation.event.json",
+  "roleName": "twitterclonev27fa13a667fa13a66PostConfirmation",
+  "skipEdit": true,
+  "enableCors": false
+}

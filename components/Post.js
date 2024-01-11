@@ -20,20 +20,21 @@ function Post({ post, postPage }) {
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
-  const [author, setAuthor] = useState({});
   const router = useRouter();
 
-  //set post author
-  useEffect(async () => {
-    // const _author = await DataStore.query(UserModel, (user) => user.id("eq", post?.userID));
-    // setAuthor(_author[0]);
-  }, [post]);
-
-  //set post comments (use graphql elasticsearch)
+  //set post comments count 
   useEffect(async () => {
     // const _comments = await DataStore.query(CommentModel, (comment) => comment.postID("eq", post?.id));
     // setComments(_comments);
   }, [post]);
+
+  //set post comments in postpage
+  useEffect(() => {
+    if(postPage){
+
+    }
+  }, [post]);
+  
 
   //set post like count
   useEffect(async () => {
@@ -79,10 +80,10 @@ function Post({ post, postPage }) {
 
   return (
     <div className="p-3 flex cursor-pointer border-b border-gray-700" onClick={() => router.push(`/${post?.id}`)}>
-      {!postPage && <img src={author?.picture} alt="" className="h-11 w-11 rounded-full mr-4" />}
+      {!postPage && <img src={post?.user?.picture} alt="" className="h-11 w-11 rounded-full mr-4" />}
       <div className="flex flex-col space-y-2 w-full">
         <div className={`flex ${!postPage && "justify-between"}`}>
-          {postPage && <img src={author?.picture} alt="Profile Pic" className="h-11 w-11 rounded-full mr-4" />}
+          {postPage && <img src={post?.user?.picture} alt="Profile Pic" className="h-11 w-11 rounded-full mr-4" />}
           <div className="text-[#6e767d]">
             <div className="inline-block group">
               <h4
@@ -90,9 +91,9 @@ function Post({ post, postPage }) {
                   !postPage && "inline-block"
                 }`}
               >
-                {author?.name}
+                {post?.user?.name}
               </h4>
-              <span className={`text-sm sm:text-[15px] ${!postPage && "ml-1.5"}`}>@{author?.tag}</span>
+              <span className={`text-sm sm:text-[15px] ${!postPage && "ml-1.5"}`}>@{post?.user?.tag}</span>
             </div>
             ·{" "}
             <span className="hover:underline text-sm sm:text-[15px]">

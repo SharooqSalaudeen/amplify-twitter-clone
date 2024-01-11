@@ -1,0 +1,53 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY {
+  globalAuthRule: AuthRule = { allow: public }
+} # FOR TESTING ONLY!
+type User @model @searchable {
+  id: ID!
+  type: String! @index(name: "usersByDate", queryField: "listUsersByDate", sortKeyFields: ["createdAt"])
+  email: AWSEmail!
+  name: String
+  tag: String
+  picture: String
+  lastOnlineAt: String
+  posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])
+  createdAt: String!
+}
+
+type Post @model @searchable {
+  id: ID!
+  type: String! @index(name: "postsByDate", queryField: "listPostsByDate", sortKeyFields: ["createdAt"])
+  content: String
+  image: String
+  userId: ID! @index(name: "byUser")
+  user: User @belongsTo(fields: ["userId"])
+  comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
+  likes: [Like] @hasMany(indexName: "byPost", fields: ["id"])
+  createdAt: String!
+}
+
+type Comment @model @searchable {
+  id: ID!
+  type: String! @index(name: "commentsByDate", queryField: "listCommentsByDate", sortKeyFields: ["createdAt"])
+  content: String
+  postId: ID! @index(name: "byPost")
+  post: Post @belongsTo(fields: ["postId"])
+  userId: ID!
+  user: User @hasOne(fields: ["userId"])
+  createdAt: String!
+}
+
+type Like @model @searchable {
+  id: ID!
+  type: String! @index(name: "likesByDate", queryField: "listLikesByDate", sortKeyFields: ["createdAt"])
+  postId: ID! @index(name: "byPost")
+  post: Post @belongsTo(fields: ["postId"])
+  userId: ID!
+  user: User @hasOne(fields: ["userId"])
+  createdAt: String!
+}
+
+type Subscription {
+  onCreatePostByUserId(userID: ID!): Post @aws_subscribe(mutations: ["createPost"])
+}

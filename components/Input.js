@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, useContext } from "react";
-import Amplify, { API, Predicates } from "aws-amplify";
+import Amplify, { API } from "aws-amplify";
 
 import { CalendarIcon, ChartBarIcon, EmojiHappyIcon, PhotographIcon, XIcon } from "@heroicons/react/outline";
 import "emoji-mart/css/emoji-mart.css";
@@ -20,7 +20,10 @@ function Input() {
     if (loading) return;
     setLoading(true);
     try {
-      await API.graphql({ query: mutations.createPost, variables: { input: { userID: user?.id, content: input } } });
+      await API.graphql({
+        query: mutations.createPost,
+        variables: { input: { userId: user?.id, content: input, type: "post" } },
+      });
       console.log("Post saved successfully!");
     } catch (error) {
       console.log("Error saving post", error);

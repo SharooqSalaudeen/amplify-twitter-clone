@@ -15,6 +15,7 @@ function HubEvents() {
             id: userData.attributes.sub,
           },
         });
+        console.log("getUser", data);
         setUser(data.getUser);
       })
       .catch(() => {
