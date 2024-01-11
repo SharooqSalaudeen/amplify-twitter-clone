@@ -53,3 +53,4 @@ export default function Home({ trendingResults, followResults, authenticated, us
     </div>
   );
 }
+
